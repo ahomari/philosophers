@@ -6,6 +6,7 @@
 # include <unistd.h>
 # include <pthread.h>
 # include <stdlib.h>
+# include <sys/time.h>
 
 typedef struct s_philo
 {
@@ -22,11 +23,8 @@ typedef struct s_philo
 
 typedef struct s_data
 {
-    pthread_mutex_t	*forks;
-    pthread_mutex_t *time_to_die;
-    
-    pthread_mutex_t print;
     t_philo         *philo;
+    pthread_mutex_t	*forks;
 }           t_data;
 
 

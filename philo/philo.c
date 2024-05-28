@@ -12,20 +12,25 @@
 
 #include "philo.h"
 
-void	ft_eat()
-{
-	
-}
-
 void	*thread_routine(void *data)
 {
-	t_data	*philo;
-	
-	philo = (t_data *)data;
-	while (1)
-	{
-	
-	}
+	t_philo	*philo;
+	struct timeval sp;
+
+	gettimeofday(&sp, NULL);
+	printf("%d\n", sp.tv_usec);
+	philo = (t_philo *)data;
+	pthread_mutex_lock(philo->fork_left);
+	pthread_mutex_lock(philo->fork_rghit);
+	printf("%d took the fork left\n", philo->id);
+	printf("philosopher %d took the fork right\n", philo->id);
+	usleep(philo->time_to_eat);
+	pthread_mutex_unlock(philo->fork_left);
+	pthread_mutex_unlock(philo->fork_rghit);
+	printf("Philosopher %d is Sleeping\n", philo->id);
+	usleep(philo->time_to_sleep);
+	printf("Philosopher %d is Sleeping\n", philo->id);
+	printf("Philosopher %d is thinkingn\n", philo->id);
 	return (NULL);
 }
 
@@ -37,7 +42,7 @@ void	init_mutex(t_data *data, int nbr)
 	while (i < nbr)
 	{
 		pthread_mutex_init(&data->forks[i], NULL);
-		
+		i++;
 	}
 	
 }
@@ -55,7 +60,7 @@ void    init_data(int ac, char **av)
 	data->forks = malloc(nbr * sizeof(pthread_mutex_t));
     if (!data || !data->forks || !data->philo)
         return (msg_error(-1, "Erorr Allocation\n"));
-	
+	init_mutex(data, nbr);
 	while (i < nbr)
 	{
 		data->philo[i].id = i + 1;
@@ -76,10 +81,15 @@ void    init_data(int ac, char **av)
 	i = 0;
 	while (i < nbr)
 	{
-		pthread_create(&data->philo->tid, NULL, thread_routine, &data->philo[i]);
-		pthread_join(data->philo->tid, NULL);
+		pthread_create(&data->philo[i].tid, NULL, thread_routine, &data->philo[i]);
 		i++;
-		
+	}
+	i = 0;
+	while (i < nbr)
+	{
+		// pthread_create(&data->philo->tid, NULL, thread_routine, &data->philo[i]);
+		pthread_join(data->philo[i].tid, NULL);
+		i++;
 	}
 }
 

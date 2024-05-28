@@ -12,25 +12,36 @@
 
 #include "philo.h"
 
+size_t	ft_gettime(void)
+{
+	struct timeval sp;
+
+	if (gettimeofday(&sp, NULL) == -1)
+		return (-1);
+	return ((sp.tv_sec * 1000) + (sp.tv_usec / 1000));
+
+}
+
 void	*thread_routine(void *data)
 {
 	t_philo	*philo;
-	struct timeval sp;
-
-	gettimeofday(&sp, NULL);
-	printf("%d\n", sp.tv_usec);
+	
 	philo = (t_philo *)data;
-	pthread_mutex_lock(philo->fork_left);
-	pthread_mutex_lock(philo->fork_rghit);
-	printf("%d took the fork left\n", philo->id);
-	printf("philosopher %d took the fork right\n", philo->id);
-	usleep(philo->time_to_eat);
-	pthread_mutex_unlock(philo->fork_left);
-	pthread_mutex_unlock(philo->fork_rghit);
-	printf("Philosopher %d is Sleeping\n", philo->id);
-	usleep(philo->time_to_sleep);
-	printf("Philosopher %d is Sleeping\n", philo->id);
-	printf("Philosopher %d is thinkingn\n", philo->id);
+	philo->start_time = ft_gettime();
+	while (1)
+	{
+		pthread_mutex_lock(philo->fork_left);
+		printf("%zu %d took the fork left\n", ft_gettime() - philo->start_time, philo->id);
+		pthread_mutex_lock(philo->fork_rghit);
+		printf("%zu %d took the fork right\n", ft_gettime() - philo->start_time, philo->id);
+		usleep(philo->time_to_eat * 1000);
+		pthread_mutex_unlock(philo->fork_left);
+		pthread_mutex_unlock(philo->fork_rghit);
+		printf("%zu %d is Sleeping\n", ft_gettime() - philo->start_time, philo->id);
+		usleep(philo->time_to_sleep * 1000);
+		printf("%zu %d is Sleeping\n", ft_gettime() - philo->start_time, philo->id);
+		printf("%zu %d is thinkingn\n", ft_gettime() - philo->start_time, philo->id);
+	}
 	return (NULL);
 }
 

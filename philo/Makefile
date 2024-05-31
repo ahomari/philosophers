@@ -1,17 +1,18 @@
-FLAGS					= -Wall -Wextra -Werror
+FLAGS					= -Wall -Wextra -Werror 
 CC						= cc
 RM						= rm -rf
 NAME					= philo
 HEAD					= philo.h
 
 
-SRC						= philo.c utilis.c error_msg.c
+SRC						= philo.c utilis1.c utilis2.c error_msg.c routine.c cleanup.c
 S_OBJ					= ${SRC:.c=.o}
 
 all:					${NAME}
 
+#-g -fsanitize=address
 %.o: %.c				${HEAD}
-						${CC} ${FLAGS} -c $< -o $@
+						${CC} ${FLAGS}  -c $< -o $@
 
 ${NAME}:				${S_OBJ} ${HEAD}
 						@${CC} ${S_OBJ} -o ${NAME}

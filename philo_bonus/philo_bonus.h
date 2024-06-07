@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
+/*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahomari <ahomari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 17:30:41 by ahomari           #+#    #+#             */
-/*   Updated: 2024/06/01 20:46:25 by ahomari          ###   ########.fr       */
+/*   Updated: 2024/06/06 21:06:11 by ahomari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#ifndef PHILO_BONUS_H
+# define PHILO_BONUS_H
 
 # include <stdio.h>
 # include <unistd.h>
@@ -19,22 +19,26 @@
 # include <stdlib.h>
 # include <sys/time.h>
 # include <limits.h>
+#include <semaphore.h>
+#include <signal.h>
 
 typedef struct s_philo
 {
 	int				id;
 	int				number_eat;
 	int				*live;
+	pid_t			pid;
 	size_t			start_time;
 	size_t			time_to_die;
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
 	size_t			start_time_eat;
 	pthread_t		tid;
-	pthread_mutex_t	*fork_rghit;
-	pthread_mutex_t	*fork_left;
-	pthread_mutex_t	*print;
-	pthread_mutex_t	*is_live;
+	pthread_t		tid_child;
+	sem_t	*fork_rghit;
+	sem_t	*fork_left;
+	sem_t	*print;
+	sem_t	*is_live;
 }	t_philo;
 
 typedef struct s_data
@@ -43,10 +47,10 @@ typedef struct s_data
 	int				nbr_philo;
 	int				*live;
 	size_t			time_to_die;
-	pthread_mutex_t	*print;
-	pthread_mutex_t	*is_live;
+	sem_t	*forks;
+	sem_t	*print;
+	sem_t	*is_live;
 	t_philo			*philo;
-	pthread_mutex_t	*forks;
 }	t_data;
 
 int		ft_atoi(char *str);
@@ -57,9 +61,9 @@ void	ft_thinking(t_philo *philo);
 size_t	ft_gettime(void);
 void	ft_usleep(size_t time);
 void	ft_taken(t_philo *philo);
-void	cleanup(t_data *data);
+// void	cleanup(t_data *data);
 int		create_philo(t_data *data);
-void	monitoring(t_data *data);
+void	*monitoring(void *data);
 int		parsing(t_data *data, int ac, char **av);
 int		exec_philo(t_data *data, int ac, char **av);
 void	*ft_memset(void *b, int c, size_t len);

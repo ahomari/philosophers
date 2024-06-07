@@ -6,11 +6,11 @@
 /*   By: ahomari <ahomari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 11:06:40 by ahomari           #+#    #+#             */
-/*   Updated: 2024/05/31 10:51:04 by ahomari          ###   ########.fr       */
+/*   Updated: 2024/06/01 12:08:24 by ahomari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../philo.h"
 
 static void	ft_print_msg(char *msg)
 {

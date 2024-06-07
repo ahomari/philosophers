@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   philo_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahomari <ahomari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 17:29:09 by ahomari           #+#    #+#             */
-/*   Updated: 2024/06/01 12:23:42 by ahomari          ###   ########.fr       */
+/*   Updated: 2024/06/07 01:24:35 by ahomari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
 int	main(int ac, char **av)
 {
@@ -36,5 +36,7 @@ int	main(int ac, char **av)
 		return (1);
 	if (exec_philo(data, ac, av) == 1)
 		return (1);
+	// while (1)
+	// 	;
 	return (0);
 }

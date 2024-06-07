@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cleanup.c                                          :+:      :+:    :+:   */
+/*   error_msg_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahomari <ahomari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/30 20:49:08 by ahomari           #+#    #+#             */
-/*   Updated: 2024/05/31 17:09:01 by ahomari          ###   ########.fr       */
+/*   Created: 2024/04/18 11:06:40 by ahomari           #+#    #+#             */
+/*   Updated: 2024/06/05 14:00:41 by ahomari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../philo_bonus.h"
 
-void	cleanup(t_data *data)
+static void	ft_print_msg(char *msg)
 {
 	int	i;
 
 	i = 0;
-	pthread_mutex_destroy(data->philo->print);
-	pthread_mutex_destroy(data->philo->is_live);
-	while (i < data->nbr_philo)
-		pthread_mutex_destroy(&data->forks[i++]);
-	free(data->philo->is_live);
-	free(data->philo->live);
-	free(data->philo->print);
-	free(data->forks);
-	free(data->philo);
-	free(data);
+	while (msg[i])
+	{
+		write (2, &msg[i], 1);
+		i++;
+	}
+}
+
+void	msg_error(int num, char *msg)
+{
+	if (num == -1)
+	{
+		ft_print_msg(msg);
+	}
 }

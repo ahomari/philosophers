@@ -1,11 +1,11 @@
 FLAGS					= -Wall -Wextra -Werror 
 CC						= cc
 RM						= rm -rf
-NAME					= philo
-HEAD					= philo.h
+NAME					= philo_bonus
+HEAD					= philo_bonus.h
 
 
-SRC						= philo.c tools/utilis.c tools/error_msg.c tools/routine.c tools/cleanup.c tools/create_philo.c tools/exec_philo.c tools/monitoring.c tools/parsing.c
+SRC						= philo_bonus.c tools/utilis_bonus.c tools/error_msg_bonus.c tools/routine_bonus.c tools/cleanup_bonus.c tools/create_philo_bonus.c tools/exec_philo_bonus.c tools/monitoring_bonus.c tools/parsing_bonus.c
 S_OBJ					= ${SRC:.c=.o} 
 
 all:					${NAME}

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utilis1.c                                          :+:      :+:    :+:   */
+/*   utilis_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahomari <ahomari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:16:15 by ahomari           #+#    #+#             */
-/*   Updated: 2024/05/31 20:48:22 by ahomari          ###   ########.fr       */
+/*   Updated: 2024/06/05 14:00:14 by ahomari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../philo_bonus.h"
 
 size_t	ft_gettime(void)
 {
@@ -30,38 +30,19 @@ void	ft_usleep(size_t time)
 		usleep(60);
 }
 
-static int	ft_isdigit(int c)
+void	*ft_memset(void *b, int c, size_t len)
 {
-	if (c >= '0' && c <= '9')
-		return (1);
-	return (0);
-}
+	unsigned char	*ptr;
+	unsigned char	r;
+	size_t			i;
 
-int	ft_atoi(char *str)
-{
-	int				i;
-	int				n;
-	unsigned long	r;
-
-	(1) && (i = 0, n = 1, r = 0);
-	while (str[i] == '\t' || str[i] == '\n' || str[i] == '\v' || str[i] == '\f'
-		|| str[i] == '\r' || str[i] == ' ')
-		i++;
-	if (str[i] == '+' || str[i] == '-')
+	ptr = (unsigned char *)b;
+	r = (unsigned char)c;
+	i = 0;
+	while (len > i)
 	{
-		if (str[i] == '-')
-			n *= -1;
+		ptr[i] = r;
 		i++;
 	}
-	if (!str[i])
-		return (-1);
-	while (str[i])
-	{
-		//khasni nhandli int max
-		if (ft_isdigit(str[i]) == 0)
-			return (-1);
-		r = r * 10 +(str[i] - 48);
-		i++;
-	}
-	return (r * n);
+	return ((void *)ptr);
 }

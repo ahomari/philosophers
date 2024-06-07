@@ -6,7 +6,7 @@
 /*   By: ahomari <ahomari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 11:04:13 by ahomari           #+#    #+#             */
-/*   Updated: 2024/06/07 01:32:35 by ahomari          ###   ########.fr       */
+/*   Updated: 2024/06/07 14:48:01 by ahomari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,19 @@ void	*thread_routine(void *data)
 	t_philo	*philo;
 
 	philo = (t_philo *)data;
-	
 	philo->pid = fork();
 	if (philo->pid == 0)
 	{
 		pthread_create(&philo->tid_child, NULL, monitoring, philo);
 		pthread_detach(philo->tid_child);
-		while (1)
+		while (philo->number_eat != 0)
 		{
 			ft_taken(philo);
 			ft_eating(philo);
 			ft_sleeping(philo);
 			ft_thinking(philo);
 		}
-		exit(0);
+		exit (0);
 	}
 	else
 		waitpid(philo->pid, NULL, 0);

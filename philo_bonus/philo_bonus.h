@@ -6,7 +6,7 @@
 /*   By: ahomari <ahomari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 17:30:41 by ahomari           #+#    #+#             */
-/*   Updated: 2024/06/06 21:06:11 by ahomari          ###   ########.fr       */
+/*   Updated: 2024/06/07 11:54:15 by ahomari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_philo
 	size_t			time_to_die;
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
-	size_t			start_time_eat;
+	size_t			last_meal;
 	pthread_t		tid;
 	pthread_t		tid_child;
 	sem_t	*fork_rghit;
@@ -46,6 +46,7 @@ typedef struct s_data
 	int				check_eat;
 	int				nbr_philo;
 	int				*live;
+	pthread_t		tid_repeat;
 	size_t			time_to_die;
 	sem_t	*forks;
 	sem_t	*print;

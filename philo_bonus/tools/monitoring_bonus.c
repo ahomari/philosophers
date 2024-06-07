@@ -6,7 +6,7 @@
 /*   By: ahomari <ahomari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 11:59:46 by ahomari           #+#    #+#             */
-/*   Updated: 2024/06/07 01:17:49 by ahomari          ###   ########.fr       */
+/*   Updated: 2024/06/07 12:00:34 by ahomari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	*monitoring(void *data)
 
 	while (1)
 	{
-		if (ft_gettime() - philo->start_time_eat > \
+		if (ft_gettime() - philo->last_meal > \
 		philo->time_to_die)
 		{
 			sem_wait(philo->print);

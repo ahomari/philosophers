@@ -6,25 +6,11 @@
 /*   By: ahomari <ahomari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 11:59:46 by ahomari           #+#    #+#             */
-/*   Updated: 2024/06/07 12:00:34 by ahomari          ###   ########.fr       */
+/*   Updated: 2024/06/08 00:31:27 by ahomari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo_bonus.h"
-
-// int	check_nbr_eat(t_data *data)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (i < data->nbr_philo)
-// 	{
-// 		if (data->philo[i].number_eat != 0)
-// 			return (1);
-// 		i++;
-// 	}
-// 	return (0);
-// }
 
 void	*monitoring(void *data)
 {
@@ -34,6 +20,7 @@ void	*monitoring(void *data)
 
 	while (1)
 	{
+		sem_wait(philo->check_d);
 		if (ft_gettime() - philo->last_meal > \
 		philo->time_to_die)
 		{
@@ -43,6 +30,8 @@ void	*monitoring(void *data)
 			sem_post(philo->is_live);
 			break ;
 		}
+		sem_post(philo->check_d);
+
 	}
 	return (NULL);
 }

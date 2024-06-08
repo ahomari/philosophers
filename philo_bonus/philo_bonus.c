@@ -6,7 +6,7 @@
 /*   By: ahomari <ahomari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 17:29:09 by ahomari           #+#    #+#             */
-/*   Updated: 2024/06/07 01:24:35 by ahomari          ###   ########.fr       */
+/*   Updated: 2024/06/08 00:32:53 by ahomari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,5 @@ int	main(int ac, char **av)
 		return (1);
 	if (exec_philo(data, ac, av) == 1)
 		return (1);
-	// while (1)
-	// 	;
 	return (0);
 }

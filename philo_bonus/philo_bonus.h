@@ -6,7 +6,7 @@
 /*   By: ahomari <ahomari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 17:30:41 by ahomari           #+#    #+#             */
-/*   Updated: 2024/06/07 11:54:15 by ahomari          ###   ########.fr       */
+/*   Updated: 2024/06/08 00:13:04 by ahomari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_philo
 	sem_t	*fork_left;
 	sem_t	*print;
 	sem_t	*is_live;
+	sem_t	*check_d;
 }	t_philo;
 
 typedef struct s_data
@@ -48,9 +49,11 @@ typedef struct s_data
 	int				*live;
 	pthread_t		tid_repeat;
 	size_t			time_to_die;
-	sem_t	*forks;
-	sem_t	*print;
-	sem_t	*is_live;
+	sem_t			*forks;
+	sem_t			*print;
+	sem_t			*is_live;
+	sem_t	*check_d;
+
 	t_philo			*philo;
 }	t_data;
 

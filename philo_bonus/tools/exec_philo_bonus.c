@@ -6,7 +6,7 @@
 /*   By: ahomari <ahomari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:03:15 by ahomari           #+#    #+#             */
-/*   Updated: 2024/06/07 14:47:31 by ahomari          ###   ########.fr       */
+/*   Updated: 2024/06/08 00:29:51 by ahomari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,14 @@ int	init_mutex(t_data *data)
 	sem_unlink("print");
 	sem_close(data->is_live);
 	sem_unlink("is_live");
+	sem_close(data->check_d);
+	sem_unlink("check_d");
 
 	data->forks = sem_open("forks",  O_CREAT, 0644, data->nbr_philo);
 	data->print = sem_open("print", O_CREAT, 0644, 1);
 	data->is_live = sem_open("is_live", O_CREAT, 0644, 0);
+	data->check_d = sem_open("check_d", O_CREAT, 0644, 1);
+
 	if (!data->print || !data->is_live || !data->forks)
 		exit (1);
 	return (0);
@@ -40,6 +44,7 @@ void	init_data(t_data *data, int ac, char **av)
 		data->philo[i].fork_rghit = data->forks;
 		data->philo[i].print = data->print;
 		data->philo[i].is_live = data->is_live;
+		data->philo[i].check_d = data->check_d;
 		data->philo[i].id = i + 1;
 		data->philo[i].time_to_die = ft_atoi(av[2]);
 		data->philo[i].time_to_eat = ft_atoi(av[3]);
@@ -54,31 +59,13 @@ void	init_data(t_data *data, int ac, char **av)
 		i++;
 	}
 }
-
-// int	check_nbr_eat(t_data *data)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (i < data->nbr_philo)
-// 	{
-// 		if (data->philo[i].number_eat == 0)
-// 			i++;
-// 		else
-// 			break;
-// 	}
-// 	if (i == data->nbr_philo - 1)
-// 		sem_post(data->is_live);
-// 	return (0);
-// }
-
 void	*nbr_repeat(void *arg)
 {
 	t_data	*data;
 
 	data = (t_data *)arg;
 	usleep(50);
-	while (wait(NULL) != -1)
+	while (waitpid(-1, NULL, 0) > 0)
 		;
 	sem_post(data->is_live);
 	return (NULL);

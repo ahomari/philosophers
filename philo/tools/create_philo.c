@@ -6,7 +6,7 @@
 /*   By: ahomari <ahomari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 11:04:13 by ahomari           #+#    #+#             */
-/*   Updated: 2024/06/05 11:04:36 by ahomari          ###   ########.fr       */
+/*   Updated: 2024/06/09 17:14:59 by ahomari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	create_philo(t_data *data)
 	while (i < data->nbr_philo)
 	{
 		if (pthread_create(&data->philo[i].tid, NULL, \
-		thread_routine, &data->philo[i]) != 0)
+		thread_routine, &data->philo[i]) == 0)
 			return (1);
 		i++;
 	}

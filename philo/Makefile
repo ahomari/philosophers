@@ -1,5 +1,17 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ahomari <ahomari@student.42.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/06/08 18:01:10 by ahomari           #+#    #+#              #
+#    Updated: 2024/06/10 16:21:45 by ahomari          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 FLAGS					= -Wall -Wextra -Werror 
-CC						= cc
+CC						= cc 
 RM						= rm -rf
 NAME					= philo
 HEAD					= philo.h
@@ -10,7 +22,6 @@ S_OBJ					= ${SRC:.c=.o}
 
 all:					${NAME}
 
-#-g -fsanitize=address
 %.o: %.c				${HEAD}
 						${CC} ${FLAGS}  -c $< -o $@
 

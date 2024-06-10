@@ -1,35 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   monitoring_bonus.c                                 :+:      :+:    :+:   */
+/*   repeat_eat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahomari <ahomari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/01 11:59:46 by ahomari           #+#    #+#             */
-/*   Updated: 2024/06/08 15:49:15 by ahomari          ###   ########.fr       */
+/*   Created: 2024/06/08 12:25:37 by ahomari           #+#    #+#             */
+/*   Updated: 2024/06/08 15:54:14 by ahomari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo_bonus.h"
 
-void	*monitoring(void *data)
+void	*nbr_repeat(void *arg)
 {
-	t_philo	*philo;
+	t_data	*data;
 
-	philo = (t_philo *)data;
-	while (1)
-	{
-		sem_wait(philo->check_d);
-		if (ft_gettime() - philo->last_meal > \
-		philo->time_to_die)
-		{
-			sem_wait(philo->print);
-			printf("%zu %d died\n", \
-			ft_gettime() - philo->start_time, philo->id);
-			sem_post(philo->is_live);
-			break ;
-		}
-		sem_post(philo->check_d);
-	}
+	data = (t_data *)arg;
+	usleep(50);
+	while (waitpid(-1, NULL, 0) > 0)
+		;
+	sem_post(data->is_live);
 	return (NULL);
+}
+
+void	repeat_eat(t_data *data)
+{
+	if (pthread_create(&data->tid_repeat, \
+	NULL, nbr_repeat, data) != 0)
+	{
+		cleanup(data);
+		exit (1);
+	}
+	if (pthread_detach(data->tid_repeat) != 0)
+	{
+		cleanup(data);
+		exit (1);
+	}
 }

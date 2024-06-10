@@ -6,7 +6,7 @@
 /*   By: ahomari <ahomari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 10:43:52 by ahomari           #+#    #+#             */
-/*   Updated: 2024/06/05 14:00:25 by ahomari          ###   ########.fr       */
+/*   Updated: 2024/06/08 16:11:12 by ahomari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	ft_atoi(char *str)
 	return (r * n);
 }
 
-int	parsing(t_data *data, int ac, char **av)
+void	parsing(int ac, char **av)
 {
 	int	i;
 	int	nbr;
@@ -77,11 +77,11 @@ int	parsing(t_data *data, int ac, char **av)
 		nbr = ft_atoi(av[i]);
 		if (nbr < 0 || ft_strlen(av[i]) == 0)
 		{
-			free(data);
-			msg_error(-1, "Error Invalid Arg 2!!\n");
-			return (1);
+			msg_error(-1, "Error Invalid Arg!!\n");
+			exit (1);
 		}
 		i++;
 	}
-	return (0);
+	if (ft_atoi(av[1]) == 0)
+		exit (0);
 }

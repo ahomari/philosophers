@@ -6,7 +6,7 @@
 /*   By: ahomari <ahomari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 11:04:13 by ahomari           #+#    #+#             */
-/*   Updated: 2024/06/07 14:48:01 by ahomari          ###   ########.fr       */
+/*   Updated: 2024/06/08 15:52:52 by ahomari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	*thread_routine(void *data)
 	return (NULL);
 }
 
-int	create_philo(t_data *data)
+void	create_philo(t_data *data)
 {
 	int	i;
 
@@ -45,15 +45,20 @@ int	create_philo(t_data *data)
 	{
 		if (pthread_create(&data->philo[i].tid, NULL, \
 		thread_routine, &data->philo[i]) != 0)
-			return (1);
+		{
+			cleanup(data);
+			exit (1);
+		}
 		i++;
 	}
 	i = 0;
 	while (i < data->nbr_philo)
 	{
 		if (pthread_detach(data->philo[i].tid) != 0)
-			return (1);
+		{
+			cleanup(data);
+			exit (1);
+		}
 		i++;
 	}
-	return (0);
 }

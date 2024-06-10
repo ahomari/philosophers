@@ -6,30 +6,27 @@
 /*   By: ahomari <ahomari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:03:15 by ahomari           #+#    #+#             */
-/*   Updated: 2024/06/08 00:29:51 by ahomari          ###   ########.fr       */
+/*   Updated: 2024/06/08 15:51:47 by ahomari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo_bonus.h"
 
-int	init_mutex(t_data *data)
+int	init_semaphore(t_data *data)
 {
-	sem_close(data->forks);
-	sem_unlink("forks");
-	sem_close(data->print);
-	sem_unlink("print");
-	sem_close(data->is_live);
-	sem_unlink("is_live");
-	sem_close(data->check_d);
-	sem_unlink("check_d");
-
-	data->forks = sem_open("forks",  O_CREAT, 0644, data->nbr_philo);
+	(sem_close(data->forks), sem_unlink("forks"));
+	(sem_close(data->print), sem_unlink("print"));
+	(sem_close(data->is_live), sem_unlink("is_live"));
+	(sem_close(data->check_d), sem_unlink("check_d"));
+	data->forks = sem_open("forks", O_CREAT, 0644, data->nbr_philo);
 	data->print = sem_open("print", O_CREAT, 0644, 1);
 	data->is_live = sem_open("is_live", O_CREAT, 0644, 0);
 	data->check_d = sem_open("check_d", O_CREAT, 0644, 1);
-
-	if (!data->print || !data->is_live || !data->forks)
+	if (!data->forks || !data->print || !data->is_live || !data->check_d)
+	{
+		cleanup(data);
 		exit (1);
+	}
 	return (0);
 }
 
@@ -55,23 +52,11 @@ void	init_data(t_data *data, int ac, char **av)
 			data->philo[i].number_eat = ft_atoi(av[5]);
 		else
 			data->philo[i].number_eat = -1;
-		
 		i++;
 	}
 }
-void	*nbr_repeat(void *arg)
-{
-	t_data	*data;
 
-	data = (t_data *)arg;
-	usleep(50);
-	while (waitpid(-1, NULL, 0) > 0)
-		;
-	sem_post(data->is_live);
-	return (NULL);
-}
-
-int	exec_philo(t_data *data, int ac, char **av)
+void	exec_philo(t_data *data, int ac, char **av)
 {
 	int	i;
 
@@ -79,22 +64,12 @@ int	exec_philo(t_data *data, int ac, char **av)
 	data->philo = malloc(data->nbr_philo * sizeof(t_philo));
 	if (!data->philo)
 	{
-		return (1);
+		free(data);
+		exit (1);
 	}
-	init_mutex(data);
+	init_semaphore(data);
 	init_data(data, ac, av);
-	if (create_philo(data) == 1)
-	{
-		return (1);
-	}
-	pthread_create(&data->tid_repeat, NULL, nbr_repeat, data);
-	pthread_detach(data->tid_repeat);
-	sem_wait(data->is_live);
-	i = 0;
-	while (i < data->nbr_philo)
-	{
-		kill(data->philo[i].pid, 2);
-		i++;
-	}
-	return (0);
+	create_philo(data);
+	repeat_eat(data);
+	kill_process(data);
 }

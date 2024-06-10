@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ahomari <ahomari@student.42.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/06/08 18:02:36 by ahomari           #+#    #+#              #
+#    Updated: 2024/06/08 18:03:16 by ahomari          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 FLAGS					= -Wall -Wextra -Werror 
 CC						= cc
 RM						= rm -rf
@@ -5,12 +17,12 @@ NAME					= philo_bonus
 HEAD					= philo_bonus.h
 
 
-SRC						= philo_bonus.c tools/utilis_bonus.c tools/error_msg_bonus.c tools/routine_bonus.c tools/cleanup_bonus.c tools/create_philo_bonus.c tools/exec_philo_bonus.c tools/monitoring_bonus.c tools/parsing_bonus.c
+SRC						= philo_bonus.c tools/utilis_bonus.c tools/error_msg_bonus.c tools/routine_bonus.c tools/cleanup_bonus.c tools/create_philo_bonus.c tools/exec_philo_bonus.c tools/monitoring_bonus.c \
+							tools/parsing_bonus.c tools/repeat_eat.c
 S_OBJ					= ${SRC:.c=.o} 
 
 all:					${NAME}
 
-#-g -fsanitize=address
 %.o: %.c				${HEAD}
 						${CC} ${FLAGS}  -c $< -o $@
 

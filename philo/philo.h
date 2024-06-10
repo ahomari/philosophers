@@ -6,7 +6,7 @@
 /*   By: ahomari <ahomari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 17:30:41 by ahomari           #+#    #+#             */
-/*   Updated: 2024/06/01 20:46:25 by ahomari          ###   ########.fr       */
+/*   Updated: 2024/06/09 17:16:46 by ahomari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <stdlib.h>
 # include <sys/time.h>
 # include <limits.h>
+
+#define malloc(x) NULL
 
 typedef struct s_philo
 {
@@ -60,7 +62,7 @@ void	ft_taken(t_philo *philo);
 void	cleanup(t_data *data);
 int		create_philo(t_data *data);
 void	monitoring(t_data *data);
-int		parsing(t_data *data, int ac, char **av);
+int		parsing(int ac, char **av);
 int		exec_philo(t_data *data, int ac, char **av);
 void	*ft_memset(void *b, int c, size_t len);
 

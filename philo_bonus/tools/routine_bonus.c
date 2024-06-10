@@ -6,7 +6,7 @@
 /*   By: ahomari <ahomari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:07:35 by ahomari           #+#    #+#             */
-/*   Updated: 2024/06/08 00:16:23 by ahomari          ###   ########.fr       */
+/*   Updated: 2024/06/08 15:50:13 by ahomari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	ft_taken(t_philo *philo)
 
 void	ft_eating(t_philo *philo)
 {
-	size_t time;
-	
+	size_t	time;
+
 	time = ft_gettime();
 	sem_wait(philo->print);
 	printf("%zu %d is eating\n", \

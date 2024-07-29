@@ -6,23 +6,16 @@
 /*   By: ahomari <ahomari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 17:29:09 by ahomari           #+#    #+#             */
-/*   Updated: 2024/06/10 16:22:27 by ahomari          ###   ########.fr       */
+/*   Updated: 2024/06/08 16:19:55 by ahomari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void f()
-{
-	system("leaks philo");
-}
-
 int	main(int ac, char **av)
 {
 	t_data	*data;
 
-	
-	atexit(f);
 	if (ac != 5 && ac != 6)
 	{
 		msg_error(-1, "Error Invalid Arg!!\n");

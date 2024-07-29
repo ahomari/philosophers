@@ -6,7 +6,7 @@
 /*   By: ahomari <ahomari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 17:30:41 by ahomari           #+#    #+#             */
-/*   Updated: 2024/06/09 17:16:46 by ahomari          ###   ########.fr       */
+/*   Updated: 2024/06/08 16:01:27 by ahomari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 # include <stdlib.h>
 # include <sys/time.h>
 # include <limits.h>
-
-#define malloc(x) NULL
 
 typedef struct s_philo
 {

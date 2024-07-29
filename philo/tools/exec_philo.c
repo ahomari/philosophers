@@ -6,7 +6,7 @@
 /*   By: ahomari <ahomari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 12:03:15 by ahomari           #+#    #+#             */
-/*   Updated: 2024/06/10 16:20:43 by ahomari          ###   ########.fr       */
+/*   Updated: 2024/06/01 12:05:23 by ahomari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ void	more_init(t_data *data)
 
 int	init_mutex(t_data *data)
 {
-	data->print = NULL ; //(sizeof(pthread_mutex_t));
+	data->print = malloc(sizeof(pthread_mutex_t));
 	data->is_live = malloc(sizeof(pthread_mutex_t));
-	data->live =  malloc(sizeof(int));
+	data->live = malloc(sizeof(int));
 	if (!data->print || !data->is_live || !data->live)
 	{
 		(free(data->print), free(data->is_live), free(data->live));
